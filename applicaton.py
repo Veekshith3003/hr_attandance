@@ -7,9 +7,9 @@ uploaded_file = st.file_uploader("Upload Excel File", type=["xlsx"])
 
 if uploaded_file:
     df = pd.read_excel(uploaded_file)
-    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+    df['Date And Time'] = pd.to_datetime(df['Date And Time'])
 
-    df = df.sort_values(by=['User ID', 'Timestamp'])
+    df = df.sort_values(by=['User ID', 'Date And Time'])
 
     first_entries = df.groupby('User ID').first().reset_index()
     last_entries = df.groupby('User ID').last().reset_index()
@@ -17,7 +17,7 @@ if uploaded_file:
     first_entries['Entry Type'] = 'First Entry'
     last_entries['Entry Type'] = 'Last Entry'
 
-    result = pd.concat([first_entries, last_entries]).sort_values(by=['User ID', 'Timestamp'])
+    result = pd.concat([first_entries, last_entries]).sort_values(by=['User ID', 'Date And Time'])
 
     st.write("### Processed Data:")
     st.dataframe(result)
