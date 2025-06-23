@@ -7,6 +7,8 @@ uploaded_file = st.file_uploader("Upload Excel File", type=["xlsx"])
 
 if uploaded_file:
     df = pd.read_excel(uploaded_file)
+    st.write("Columns found:", df.columns.tolist())
+
     df['Date And Time'] = pd.to_datetime(df['Date And Time'])
 
     df = df.sort_values(by=['User ID', 'Date And Time'])
